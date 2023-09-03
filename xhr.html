@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+<head>
+</head>
+<body>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+function getStats() {
+	k = document.getElementById('myFile');
+	a = k.files[0].size;
+	b = k.files[0].name;
+	c = k.files[0].lastModified;
+	lbr = "<br>"
+	s = document.getElementById('stats');
+	s.appendChild(document.createTextNode(a));
+	s.appendChild(document.createTextNode(lbr));
+	s.appendChild(document.createTextNode(b));
+	s.appendChild(document.createTextNode(lbr));
+	s.appendChild(document.createTextNode(c));
+	}
+	
+	//~ function addDelete() {
+		//~ k = document.getElementById('del');
+	//~ }
+	
+document.getElementById("scaleForm").addEventListener("click",function() { FetchImage("scale");});
+document.getElementById("hflipForm").addEventListener("click",function() { FetchImage("hflip");});
+document.getElementById("vflipForm").addEventListener("click",function() { FetchImage("vflip");});
+document.getElementById("negvalForm").addEventListener("click",function() { FetchImage("negval");});
+document.getElementById("pixelForm").addEventListener("click",function() { FetchImage("pixel");});
+document.getElementById("blurForm").addEventListener("click",function() { FetchImage("blur");});
+document.getElementById("cannyForm").addEventListener("click",function() { FetchImage("canny");});
+document.getElementById("yeloForm").addEventListener("click",function() { FetchImage("yelo");});
+document.getElementById("duotoneForm").addEventListener("click",function() { FetchImage("duotone");});
+document.getElementById("mrgpForm").addEventListener("click",function() { FetchImage("mrgp");});
+document.getElementById("darkenForm").addEventListener("click",function() { FetchImage("darken");});
+document.getElementById("vintageForm").addEventListener("click",function() { FetchImage("vintage");});
+document.getElementById("negclrForm").addEventListener("click",function() { FetchImage("negclr");});
+document.getElementById("180Form").addEventListener("click",function() { FetchImage("rotate180");});
+document.getElementById("clkForm").addEventListener("click",function() { FetchImage("rotateclk");});
+document.getElementById("angleForm").addEventListener("click",function() { FetchImage("rotateangle");});
+document.getElementById("anticlkForm").addEventListener("click",function() { FetchImage("rotateanticlk");});
+  
+function FetchImage(action) {
+
+    var formData  = new FormData( document.getElementById("new_document_attachment") );
+
+    for(var i = 0; i < document.getElementById("myFile").files.length; i++) {
+      console.log(i)
+      formData.append("imgfile[]",document.getElementById("myFile").files[i]);
+    }
+
+    var xhr = new XMLHttpRequest();
+    // here you can change empty URL to your file
+    xhr.open("POST", "/upload");
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+			document.getElementById('resimg').setAttribute("src",xhr.responseText);
+		}
+	};
+	formData.append("task",action);
+    xhr.send(formData);
+}
+const form = document.getElementById("new_document_attachment");
+const fileInput = document.getElementById("myFile");
+
+window.addEventListener('paste', e => {
+  fileInput.files = e.clipboardData.files;
+  getStats();
+});
+
+});
+</script>
+
+<form action="" method="post" enctype="multipart/form-data" id="new_document_attachment">
+  <input type="file" name="imgfile" id="myFile"  onchange="myFunction()" accept="image/jpg,image/jpeg,image/png"  />
+  <input type="number" value="360" name="imgwidth" min="1" max="1440"/>
+  <div class="btn" id="scaleForm">Send</div>
+  <div class="btn" id="hflipForm">Hflip</div>
+  <div class="btn" id="vflipForm">Vflip</div>
+  <div class="btn" id="blurForm">Blur</div>
+  <div class="btn" id="pixelForm">Pixelate</div>
+  <div class="btn" id="cannyForm">Canny</div>
+  <div class="btn" id="negvalForm">Negval</div>
+  <div class="btn" id="negclrForm">Negclr</div>
+  <div class="btn" id="vintageForm">Vintage</div>
+  <div class="btn" id="darkenForm">Darken</div>
+  <div class="btn" id="duotoneForm">Duotone</div>
+  <div class="btn" id="mrgpForm">MergePlanes</div>
+  <div class="btn" id="yeloForm">Yelo</div>
+  <div class="btn" id="angleForm">Rotate Angle</div>
+  <div class="btn" id="180Form">Rotate 180</div>
+  <div class="btn" id="clkForm">Rotate Clk</div>
+  <div class="btn" id="anticlkForm">Rotate AntiClk</div>
+</form>
+
+<section id="stats"></section>
+<section class="view">
+<div class="previewContainer" id="demo"></div>
+<div class="previewContainer">
+	<img id="resimg"/>
+</div>
+</section>
+
+<style>
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding : 0;
+}
+
+img {
+	width: 100%;
+}
+
+.view {
+    display: flex;
+    padding: 1rem;
+}
+.viewrev {
+    display: flex;
+    padding: 1rem;
+    flex-direction: row-reverse;
+}
+
+.btn {
+	padding: 5px 10px; border: 1px solid black; cursor: pointer; display: inline-block;
+}
+
+</style>
+	<div id="noContextMenu">The context menu has been disabled on this paragraph.</div>
+<script>
+	const noContext = document.getElementById("noContextMenu");
+	noContext.addEventListener("contextmenu", (e) => {
+	e.preventDefault();
+	});
+	
+</script>
+
+<script>
+function myFunction(){
+  var x = document.getElementById("myFile");  
+  var txt = "";
+  if ('files' in x) {
+    if (x.files.length == 0) {
+      txt = "Select one or more files.";
+    } else {
+        txt += "<section class='filedesc' ><br>";
+        var file = x.files[0];
+        if ('name' in file) {
+          txt += "<span>Name: </span><span>" + file.name + "</span><br>";
+        }
+        if ('size' in file) {
+		if (file.size > 10*1024*1024) {
+			window.alert("Size too big, select file smaller than 10 MB");
+		} else {
+			txt += "size: " + formatBytes(file.size) + " bytes<br></section>";
+		  }
+        }
+    }
+  } 
+  else {
+    if (x.value == "") {
+      txt += "Select one or more files.";
+    } else {
+      txt += "The files property is not supported by your browser!";
+      txt  += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead. 
+    }
+  }
+	document.getElementById("stats").innerHTML = txt;
+	document.getElementById("demo").innerHTML = "<img onclick='GetImageStats(this)' id='previewImg' src='"+ URL.createObjectURL(file) +"'/>";
+}
+
+	function GetImageStats(img) {
+		var w = img.naturalWidth;
+		var h = img.naturalHeight;
+		console.log("NEW IMAGE width", w);
+		console.log("NEW IMAGE height: ", h);
+		document.getElementById('df').innerHTML = w+"_"+h;
+	}
+function formatBytes(a,b=2){if(!+a)return"0 Bytes";const c=0>b?0:b,d=Math.floor(Math.log(a)/Math.log(1024));return`${parseFloat((a/Math.pow(1024,d)).toFixed(c))} ${["Bytes","KiB","MiB","GiB","TiB","PiB","EiB","ZiB","YiB"][d]}`}
+</script>
+<p id="df"></p>
+</body>
+</html>
