@@ -25,7 +25,7 @@ func main() {
 	fs1 := http.FileServer(http.Dir("./edits"))
 	http.Handle("/edit/", http.StripPrefix("/edit/", fs1))
 	log.Println("strating server")
-	if err := http.ListenAndServe("localhost:4000", nil); err != nil {
+	if err := http.ListenAndServe(":7000", nil); err != nil {
 		log.Fatal(err)
 	}
 }
