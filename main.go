@@ -176,6 +176,10 @@ func UploadFileHandler(w http.ResponseWriter, r *http.Request) {
 				ffNegclr(ff);		
 				sendImageAsHTML(w,r,"/edit/negclr_"+fileName+ff.desiredExt)
 			}
+			case "tones" :  {
+				ffTones(ff);		
+				sendImageAsHTML(w,r,"/edit/tones_"+fileName+ff.desiredExt)
+			}
 			case "yelo" :  {
 				ffYelo(ff);		
 				sendImageAsHTML(w,r,"/edit/yelo_"+fileName+ff.desiredExt)
@@ -200,13 +204,44 @@ func UploadFileHandler(w http.ResponseWriter, r *http.Request) {
 				ffPixelated(ff);		
 				go sendImageAsHTML(w,r,"/edit/pixel_"+fileName+ff.desiredExt)
 			}
+			case "edge" :  {
+				ffEdgeDetect(ff);		
+				go sendImageAsHTML(w,r,"/edit/edge_"+fileName+ff.desiredExt)
+			}
+			case "emboss" :  {
+				ffEmboss(ff);		
+				go sendImageAsHTML(w,r,"/edit/emboss_"+fileName+ff.desiredExt)
+			}
+			case "brr" :  {
+				ffBrr(ff);		
+				go sendImageAsHTML(w,r,"/edit/brr_"+fileName+ff.desiredExt)
+			}
+			case "alum" :  {
+				ffAlum(ff);		
+				go sendImageAsHTML(w,r,"/edit/alum_"+fileName+ff.desiredExt)
+			}
+			case "crv" :  {
+				ffCurveNeg(ff);		
+				go sendImageAsHTML(w,r,"/edit/crv_"+fileName+ff.desiredExt)
+			}
+			case "test" :  {
+				ffTest(ff);		
+				go sendImageAsHTML(w,r,"/edit/test_"+fileName+ff.desiredExt)
+			}
+			case "dotmatrix" :  {
+			ff.ht = r.FormValue("height")
+			ff.wd =	r.FormValue("width")
+			ff.desiredExt = ff.fileExt
+				ffDotMatrix(ff);		
+				go sendImageAsHTML(w,r,"/edit/dot_"+fileName+".jpg")
+			}
 		}
 		os.Remove("./uploads/"+fileName+ff.fileExt)
 		fmt.Println("./uploads/"+fileName+ff.fileExt)
 }
 
 type FFFilters struct {
-	fileName , fileExt , desiredExt, height, width, filter, angle string
+	fileName , fileExt , desiredExt, height, width, filter, angle,ht,wd string
 }
 
 func sendImageAsHTML(w http.ResponseWriter, r *http.Request, a string) {

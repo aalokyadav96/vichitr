@@ -28,10 +28,18 @@ document.getElementById("scaleForm").addEventListener("click",function() { Fetch
 document.getElementById("hflipForm").addEventListener("click",function() { FetchImage("hflip");});
 document.getElementById("vflipForm").addEventListener("click",function() { FetchImage("vflip");});
 document.getElementById("negvalForm").addEventListener("click",function() { FetchImage("negval");});
+document.getElementById("testForm").addEventListener("click",function() { FetchImage("test");});
+document.getElementById("lavForm").addEventListener("click",function() { FetchImage("dotmatrix");});
+document.getElementById("brrForm").addEventListener("click",function() { FetchImage("brr");});
+document.getElementById("crvForm").addEventListener("click",function() { FetchImage("crv");});
+document.getElementById("alumForm").addEventListener("click",function() { FetchImage("alum");});
 document.getElementById("pixelForm").addEventListener("click",function() { FetchImage("pixel");});
 document.getElementById("blurForm").addEventListener("click",function() { FetchImage("blur");});
 document.getElementById("cannyForm").addEventListener("click",function() { FetchImage("canny");});
+document.getElementById("edgeForm").addEventListener("click",function() { FetchImage("edge");});
+document.getElementById("embossForm").addEventListener("click",function() { FetchImage("emboss");});
 document.getElementById("yeloForm").addEventListener("click",function() { FetchImage("yelo");});
+document.getElementById("tonesForm").addEventListener("click",function() { FetchImage("tones");});
 document.getElementById("duotoneForm").addEventListener("click",function() { FetchImage("duotone");});
 document.getElementById("mrgpForm").addEventListener("click",function() { FetchImage("mrgp");});
 document.getElementById("darkenForm").addEventListener("click",function() { FetchImage("darken");});
@@ -60,6 +68,10 @@ function FetchImage(action) {
 		}
 	};
 	formData.append("task",action);
+	if (action=="dotmatrix") {
+		formData.append("height",document.getElementById('previewImg').naturalHeight);
+		formData.append("width",document.getElementById('previewImg').naturalWidth);
+	}
     xhr.send(formData);
 }
 const form = document.getElementById("new_document_attachment");
@@ -79,9 +91,16 @@ window.addEventListener('paste', e => {
   <div class="btn" id="scaleForm">Send</div>
   <div class="btn" id="hflipForm">Hflip</div>
   <div class="btn" id="vflipForm">Vflip</div>
+  <div class="btn" id="testForm">Test</div>
+  <div class="btn" id="lavForm">Lav</div>
+  <div class="btn" id="crvForm">Crv</div>
   <div class="btn" id="blurForm">Blur</div>
+  <div class="btn" id="alumForm">Alum</div>
   <div class="btn" id="pixelForm">Pixelate</div>
   <div class="btn" id="cannyForm">Canny</div>
+  <div class="btn" id="edgeForm">Edge</div>
+  <div class="btn" id="embossForm">Emboss</div>
+  <div class="btn" id="brrForm">Brr</div>
   <div class="btn" id="negvalForm">Negval</div>
   <div class="btn" id="negclrForm">Negclr</div>
   <div class="btn" id="vintageForm">Vintage</div>
@@ -89,6 +108,7 @@ window.addEventListener('paste', e => {
   <div class="btn" id="duotoneForm">Duotone</div>
   <div class="btn" id="mrgpForm">MergePlanes</div>
   <div class="btn" id="yeloForm">Yelo</div>
+  <div class="btn" id="tonesForm">Tones</div>
   <div class="btn" id="angleForm">Rotate Angle</div>
   <div class="btn" id="180Form">Rotate 180</div>
   <div class="btn" id="clkForm">Rotate Clk</div>
