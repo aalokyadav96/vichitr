@@ -208,7 +208,7 @@ func ffBlur(f FFFilters) {
 	getFrom := "./uploads/" +f.fileName + f.fileExt
 	saveAs := "./edits/blur_" + f.fileName + f.desiredExt
 
-	var filter = "boxblur=10"
+	var filter = "boxblur=4"
 	
 	cmd := exec.Command("ffmpeg", "-i", getFrom, "-vf", filter, saveAs)
 	err := cmd.Start()
@@ -488,7 +488,7 @@ func ffAlum(f FFFilters) {
 	getFrom := "./uploads/" + f.fileName + f.fileExt
 	saveAs := "./edits/alum_" + f.fileName + f.desiredExt
 
-	var filter = "selectivecolor=reds='0 0 0 .9':whites='0 0 0 .9'"
+	var filter = "selectivecolor=greens='0 0 0 .1':whites='0 0 0 .9'"
 	
 	log.Println("ffmpeg", "-i", getFrom, "-vf", filter, saveAs)
 	cmd := exec.Command("ffmpeg", "-i", getFrom, "-vf", filter, saveAs)

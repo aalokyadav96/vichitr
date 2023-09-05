@@ -2,7 +2,58 @@
 
 <html lang="en">
 <head>
+  <head> 
+    <title>Photo Filters</title> 
 </head>
+<style>
+     
+html {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: breezesans, sans-serif;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit
+}
+
+img {
+	width: 100%;
+}
+
+.view {
+    display: flex;
+    padding: 1rem;
+	position: fixed;
+	right: 0;
+	top: 0;
+	max-width: 64vw;
+}
+.viewrev {
+    display: flex;
+    padding: 1rem;
+    flex-direction: row-reverse;
+}
+
+.btn {
+	padding: 5px 10px; border: 1px solid black; cursor: pointer; display: inline-block;
+}
+
+     button {
+		font-size: 1.1rem;
+         background-color: #fff;
+         border: 1px solid #aaa;
+         border-radius: 4px;
+     }
+     .buttonWidth, input {
+        height: 34px;
+     }
+
+ </style>
 <body>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
@@ -88,33 +139,54 @@ window.addEventListener('paste', e => {
 <form action="" method="post" enctype="multipart/form-data" id="new_document_attachment">
   <input type="file" name="imgfile" id="myFile"  onchange="myFunction()" accept="image/jpg,image/jpeg,image/png"  />
   <input type="number" value="360" name="imgwidth" min="1" max="1440"/>
-  <div class="btn" id="scaleForm">Send</div>
-  <div class="btn" id="hflipForm">Hflip</div>
-  <div class="btn" id="vflipForm">Vflip</div>
-  <div class="btn" id="testForm">Test</div>
-  <div class="btn" id="lavForm">Lav</div>
-  <div class="btn" id="crvForm">Crv</div>
-  <div class="btn" id="blurForm">Blur</div>
-  <div class="btn" id="alumForm">Alum</div>
-  <div class="btn" id="pixelForm">Pixelate</div>
-  <div class="btn" id="cannyForm">Canny</div>
-  <div class="btn" id="edgeForm">Edge</div>
-  <div class="btn" id="embossForm">Emboss</div>
-  <div class="btn" id="brrForm">Brr</div>
-  <div class="btn" id="negvalForm">Negval</div>
-  <div class="btn" id="negclrForm">Negclr</div>
-  <div class="btn" id="vintageForm">Vintage</div>
-  <div class="btn" id="darkenForm">Darken</div>
-  <div class="btn" id="duotoneForm">Duotone</div>
-  <div class="btn" id="mrgpForm">MergePlanes</div>
-  <div class="btn" id="yeloForm">Yelo</div>
-  <div class="btn" id="tonesForm">Tones</div>
-  <div class="btn" id="angleForm">Rotate Angle</div>
-  <div class="btn" id="180Form">Rotate 180</div>
-  <div class="btn" id="clkForm">Rotate Clk</div>
-  <div class="btn" id="anticlkForm">Rotate AntiClk</div>
 </form>
-
+    <div id="buttonbar"> 
+        <label>  Transform </label> 
+        <br/>
+  <button class="btn" id="scaleForm">Resize</button>
+  <button class="btn" id="hflipForm">Hflip</button>
+  <button class="btn" id="vflipForm">Vflip</button>
+        <br/>
+        <label>  Rotate </label> 
+        <br/>
+  <button class="btn" id="angleForm">Rotate Angle</button>
+  <button class="btn" id="180Form">Rotate 180</button>
+  <button class="btn" id="clkForm">Rotate Clk</button>
+  <button class="btn" id="anticlkForm">Rotate AntiClk</button>
+        <br/>
+        <label>  Negatives </label> 
+        <br/>   
+  <button class="btn" id="crvForm">Crv</button>
+  <button class="btn" id="negvalForm">Negval</button>
+  <button class="btn" id="negclrForm">Negclr</button>
+  <button class="btn" id="alumForm">Alum</button>
+        <br/>   
+        <label>  Pixel Manipulation </label> 
+        <br/>   
+  <button class="btn" id="blurForm">Blur</button>
+  <button class="btn" id="pixelForm">Pixelate</button>
+  <button class="btn" id="cannyForm">Canny</button>
+  <button class="btn" id="tonesForm">CannyWhite</button> 
+  <button class="btn" id="edgeForm">Edge</button>
+  <button class="btn" id="embossForm">Emboss</button>
+        <br/>      
+        <label>  Other </label> 
+        <br/>   
+  <button class="btn" id="testForm">Test</button>
+  <button class="btn" id="brrForm">Bright</button>
+  <button class="btn" id="vintageForm">Vintage</button>
+  <button class="btn" id="darkenForm">Darken</button>
+        <br/>      
+        <label>  Duotones </label> 
+        <br/>   
+  <button class="btn" id="duotoneForm">Duotone</button>
+  <button class="btn" id="mrgpForm">MergePlanes</button>
+  <button class="btn" id="yeloForm">Yelo</button>
+  <button class="btn" id="lavForm">Lav</button>
+        <br/>       
+    </div> 
+	
+<div id="noContextMenu">Lav filter will not work if image size is odd number.</div>
 <section id="stats"></section>
 <section class="view">
 <div class="previewContainer" id="demo"></div>
@@ -123,33 +195,6 @@ window.addEventListener('paste', e => {
 </div>
 </section>
 
-<style>
-* {
-	box-sizing: border-box;
-	margin: 0;
-	padding : 0;
-}
-
-img {
-	width: 100%;
-}
-
-.view {
-    display: flex;
-    padding: 1rem;
-}
-.viewrev {
-    display: flex;
-    padding: 1rem;
-    flex-direction: row-reverse;
-}
-
-.btn {
-	padding: 5px 10px; border: 1px solid black; cursor: pointer; display: inline-block;
-}
-
-</style>
-	<div id="noContextMenu">The context menu has been disabled on this paragraph.</div>
 <script>
 	const noContext = document.getElementById("noContextMenu");
 	noContext.addEventListener("contextmenu", (e) => {

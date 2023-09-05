@@ -31,6 +31,7 @@ func main() {
 }
 
 
+
 type Progress struct {
 	TotalSize int64
 	BytesRead int64
@@ -135,105 +136,129 @@ func UploadFileHandler(w http.ResponseWriter, r *http.Request) {
 			case "scale" :  {
 				ffScale(ff);		
 				sendImageAsHTML(w,r,"/edit/scale_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/scale_"+fileName+ff.desiredExt)
 			}
 			case "hflip" :  {
 				ffHflip(ff);		
 				sendImageAsHTML(w,r,"/edit/hflip_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/hflip_"+fileName+ff.desiredExt)
 			}
 			case "vflip" :  {
 				ffVflip(ff);		
 				sendImageAsHTML(w,r,"/edit/vflip_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/vflip_"+fileName+ff.desiredExt)
 			}
 			case "rotateclk" :  {
 				ffRotateClk(ff);		
 				sendImageAsHTML(w,r,"/edit/rotateclk_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/rotateclk_"+fileName+ff.desiredExt)
 			}
 			case "rotateanticlk" :  {
 				ffRotateAntiClk(ff);		
 				sendImageAsHTML(w,r,"/edit/rotateanticlk_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/rotateanticlk_"+fileName+ff.desiredExt)
 			}
 			case "rotate180" :  {
 				ffRotate180(ff);		
 				sendImageAsHTML(w,r,"/edit/rotate180_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/rotate180_"+fileName+ff.desiredExt)
 			}
 			case "rotateangle" :  {
 				ffRotateAngle(ff);		
 				sendImageAsHTML(w,r,"/edit/rotate"+ff.angle+"_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/rotate"+ff.angle+"_"+fileName+ff.desiredExt)
 			}
 			case "negval" :  {
 				ffNegval(ff);		
 				sendImageAsHTML(w,r,"/edit/negval_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/negval_"+fileName+ff.desiredExt)
 			}
 			case "blur" :  {
 				ffBlur(ff);		
 				sendImageAsHTML(w,r,"/edit/blur_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/blur_"+fileName+ff.desiredExt)
 			}
 			case "canny" :  {
 				ffCanny(ff);		
 				sendImageAsHTML(w,r,"/edit/canny_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/canny_"+fileName+ff.desiredExt)
 			}
 			case "negclr" :  {
 				ffNegclr(ff);		
 				sendImageAsHTML(w,r,"/edit/negclr_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/negclr_"+fileName+ff.desiredExt)
 			}
 			case "tones" :  {
 				ffTones(ff);		
 				sendImageAsHTML(w,r,"/edit/tones_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/tones_"+fileName+ff.desiredExt)
 			}
 			case "yelo" :  {
 				ffYelo(ff);		
 				sendImageAsHTML(w,r,"/edit/yelo_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/yelo_"+fileName+ff.desiredExt)
 			}
 			case "vintage" :  {
 				ffVintage(ff);		
 				sendImageAsHTML(w,r,"/edit/vintage_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/vintage_"+fileName+ff.desiredExt)
 			}
 			case "darken" :  {
 				ffDarken(ff);		
 				sendImageAsHTML(w,r,"/edit/darken_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/darken_"+fileName+ff.desiredExt)
 			}
 			case "duotone" :  {
 				ffDuotone(ff);		
 				sendImageAsHTML(w,r,"/edit/duotone_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/duotone_"+fileName+ff.desiredExt)
 			}
 			case "mrgp" :  {
 				ffMergePlanes(ff);		
 				sendImageAsHTML(w,r,"/edit/mrgp_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/mrgp_"+fileName+ff.desiredExt)
 			}
 			case "pixel" :  {
 				ffPixelated(ff);		
-				go sendImageAsHTML(w,r,"/edit/pixel_"+fileName+ff.desiredExt)
+				sendImageAsHTML(w,r,"/edit/pixel_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/pixel_"+fileName+ff.desiredExt)
 			}
 			case "edge" :  {
 				ffEdgeDetect(ff);		
-				go sendImageAsHTML(w,r,"/edit/edge_"+fileName+ff.desiredExt)
+				sendImageAsHTML(w,r,"/edit/edge_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/edge_"+fileName+ff.desiredExt)
 			}
 			case "emboss" :  {
 				ffEmboss(ff);		
-				go sendImageAsHTML(w,r,"/edit/emboss_"+fileName+ff.desiredExt)
+				sendImageAsHTML(w,r,"/edit/emboss_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/emboss_"+fileName+ff.desiredExt)
 			}
 			case "brr" :  {
 				ffBrr(ff);		
-				go sendImageAsHTML(w,r,"/edit/brr_"+fileName+ff.desiredExt)
+				sendImageAsHTML(w,r,"/edit/brr_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/brr_"+fileName+ff.desiredExt)
 			}
 			case "alum" :  {
 				ffAlum(ff);		
-				go sendImageAsHTML(w,r,"/edit/alum_"+fileName+ff.desiredExt)
+				sendImageAsHTML(w,r,"/edit/alum_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/alum_"+fileName+ff.desiredExt)
 			}
 			case "crv" :  {
 				ffCurveNeg(ff);		
-				go sendImageAsHTML(w,r,"/edit/crv_"+fileName+ff.desiredExt)
+				sendImageAsHTML(w,r,"/edit/crv_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/crv_"+fileName+ff.desiredExt)
 			}
 			case "test" :  {
 				ffTest(ff);		
-				go sendImageAsHTML(w,r,"/edit/test_"+fileName+ff.desiredExt)
+				sendImageAsHTML(w,r,"/edit/test_"+fileName+ff.desiredExt)
+				go DeleteEdit("./edits/test_"+fileName+ff.desiredExt)
 			}
 			case "dotmatrix" :  {
 			ff.ht = r.FormValue("height")
 			ff.wd =	r.FormValue("width")
 			ff.desiredExt = ff.fileExt
 				ffDotMatrix(ff);		
-				go sendImageAsHTML(w,r,"/edit/dot_"+fileName+".jpg")
+				sendImageAsHTML(w,r,"/edit/dot_"+fileName+".jpg")
 				go DeleteEdit("./edits/dot_"+fileName+".jpg")
 			}
 		}
