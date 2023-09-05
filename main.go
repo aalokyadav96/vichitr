@@ -234,10 +234,17 @@ func UploadFileHandler(w http.ResponseWriter, r *http.Request) {
 			ff.desiredExt = ff.fileExt
 				ffDotMatrix(ff);		
 				go sendImageAsHTML(w,r,"/edit/dot_"+fileName+".jpg")
+				go DeleteEdit("./edits/dot_"+fileName+".jpg")
 			}
 		}
 		os.Remove("./uploads/"+fileName+ff.fileExt)
 		fmt.Println("./uploads/"+fileName+ff.fileExt)
+}
+
+func DeleteEdit(filename string) {
+	time.Sleep(10 * time.Second)  
+	os.Remove(filename)
+	fmt.Println(filename,"Deleted")
 }
 
 type FFFilters struct {
